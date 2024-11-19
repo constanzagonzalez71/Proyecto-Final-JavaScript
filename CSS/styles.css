@@ -1,0 +1,178 @@
+/* Estilo base */
+body {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    color: #313936; /* Texto verde agua */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.nav-link {
+    color: #f8f9fa !important;
+}
+
+.nav-link:hover {
+    color: #dee2e6 !important; /* Gris claro */
+}
+
+/* Cards de productos */
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.2s ease-in-out;
+    border-radius: 10px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-img-top {
+    border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #495057; /* Gris oscuro */
+}
+
+.btn-primary {
+    background-color: #212529; /* Negro */
+    border-color: #212529;
+}
+
+.btn-primary:hover {
+    background-color: #333333; /* Gris oscuro */
+    border-color: #333333;
+}
+
+/* Estilo para el carrito */
+#carrito-container .d-flex {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6; /* Línea divisoria */
+}
+
+#total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #212529; /* Negro */
+}
+
+/* Botón de finalizar */
+#finalizar-compra {
+    background-color: #28a745; /* Verde */
+    border-color: #28a745;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#finalizar-compra:hover {
+    background-color: #218838;
+    border-color: #218838;
+}
+
+/* Responsive Design */
+
+/* Ajuste de tarjetas en pantallas pequeñas */
+@media (max-width: 576px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Ajuste de contenedores en pantallas medianas */
+@media (max-width: 768px) {
+    #productos-container {
+        gap: 1rem; /* Espacio entre tarjetas */
+    }
+
+    #carrito-container .d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Ajuste de diseño en pantallas grandes */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px; /* Limita el ancho para no extender demasiado */
+    }
+}
+/* Botón de eliminar */
+.btn-danger {
+    background-color: #f37683;
+    border-color: #f37683;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color:#f37683 ;
+    border-color:#f37683;
+    transform: scale(1.05);
+}
+
+/* Contenedor del carrito */
+#carrito-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Elementos individuales del carrito */
+#carrito-container .d-flex {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+    align-items: flex-end;
+}
+
+#carrito-container .d-flex:last-child {
+    border-bottom: none;
+}
+
+/* Total de compra */
+#total {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Botón finalizar compra */
+#finalizar-compra {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#finalizar-compra:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: scale(1.05);
+}
+
