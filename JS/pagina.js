@@ -91,7 +91,6 @@ function mostrarCarrito() {
 
 // Finalizar compra
 document.getElementById("finalizar-compra")?.addEventListener("click", () => {
-    debugger
     alert("Gracias por tu compra.");
     // Vaciar carrito y localStorage
     localStorage.removeItem("carrito");
