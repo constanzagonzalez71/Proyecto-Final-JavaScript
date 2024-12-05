@@ -6,10 +6,16 @@ body {
     margin: 0;
     padding: 0;
 }
+
 /* Navbar */
-.navbar-brand {
-    font-weight: bold;
-}
+
+  
+.navbar-brand img {
+    max-height: 50px; /*Ajusta la altura máxima del logo*/
+    width: auto;     /* Mantén las proporciones del logo*/
+    display: block; /* Evita problemas de alineación*/
+  }
+  
 .navbar {
     padding: 0.5rem 1rem;
 }
@@ -19,6 +25,8 @@ body {
 .nav-link:hover {
     color: #dee2e6 !important; /* Gris claro */
 }
+
+  
 /* Cards de productos */
 .card {
     border: none;
@@ -45,6 +53,7 @@ body {
     background-color: #333333; /* Gris oscuro */
     border-color: #333333;
 }
+
 /* Estilo para el carrito */
 #carrito-container .d-flex {
     padding: 1rem;
@@ -55,6 +64,7 @@ body {
     font-weight: bold;
     color: #212529; /* Negro */
 }
+
 /* Botón de finalizar */
 #finalizar-compra {
     background-color: #28a745; /* Verde */
@@ -66,6 +76,7 @@ body {
     background-color: #218838;
     border-color: #218838;
 }
+
 /* Responsive Design */
 /* Ajuste de tarjetas en pantallas pequeñas */
 @media (max-width: 576px) {
@@ -80,6 +91,7 @@ body {
         padding: 0.5rem 1rem;
     }
 }
+
 /* Ajuste de contenedores en pantallas medianas */
 @media (max-width: 768px) {
     #productos-container {
@@ -90,12 +102,14 @@ body {
         text-align: center;
     }
 }
+
 /* Ajuste de diseño en pantallas grandes */
 @media (min-width: 1200px) {
     .container {
         max-width: 1100px; /* Limita el ancho para no extender demasiado */
     }
 }
+
 /* Botón de eliminar */
 .btn-danger {
     background-color: #f37683;
@@ -111,6 +125,7 @@ body {
     border-color:#f37683;
     transform: scale(1.05);
 }
+
 /* Contenedor del carrito */
 #carrito-container {
     background-color: #f8f9fa;
@@ -118,6 +133,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 /* Elementos individuales del carrito */
 #carrito-container .d-flex {
     border-bottom: 1px solid #dee2e6;
@@ -127,11 +143,13 @@ body {
 #carrito-container .d-flex:last-child {
     border-bottom: none;
 }
+
 /* Total de compra */
 #total {
     font-weight: bold;
     color: #28a745;
 }
+
 /* Botón finalizar compra */
 #finalizar-compra {
     background-color: #28a745;
@@ -146,4 +164,27 @@ body {
     background-color: #218838;
     border-color: #1e7e34;
     transform: scale(1.05);
+}
+
+/* Responsive para la página de registro */
+@media (max-width: 576px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .form-control {
+        font-size: 0.9rem; /* Tamaño de fuente más pequeño para móviles */
+    }
+
+    .btn-primary {
+        font-size: 1rem;
+        padding: 0.6rem 1.5rem; /* Ajuste de tamaño en botones */
+    }
+}
+
+/* Asegurarse de que el formulario esté centrado */
+#registro-form {
+    max-width: 400px;
+    margin: auto;
 }
