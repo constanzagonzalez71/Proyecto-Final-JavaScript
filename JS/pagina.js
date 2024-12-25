@@ -1,65 +1,41 @@
-// Productos disponibles
-const productos = [
-    { id: 1, nombre: "Unicornio Multicolor", precio: 60000, img:"imagenescomprimidas/unicornio multicolor.jpg"},
-    { id: 2, nombre: "Amigurumi Muñeca Razpunsel", precio: 80000, img: "imagenescomprimidas/Muñeca Raspunzel.jpg"},
-    { id: 3, nombre: "Koala Bebe", precio: 40000, img: "imagenescomprimidas/Koala Bebé.jpg"},
-    { id: 4, nombre: "Amigurumi Conejita con moño", precio: 40000, img:"imagenescomprimidas/Conejita con moño.jpg"},
-    { id: 5, nombre: "Amigurumi Oso grande con jardinero", precio: 80000, img:"imagenescomprimidas/Oso con jardinero.jpg"},
-    { id: 6, nombre: "Amigurumi Elefanta Rosa", precio: 40000, img:"imagenescomprimidas/Elefanta Rosa .jpg"},
-    { id: 7, nombre: " Amigurumi Conejo Dormilon", precio: 80000, img:"imagenescomprimidas/Conejo dormilón.jpg"},
-    { id: 8, nombre: "Amigurumi Jirafas cortinas", precio: 80000, img:"imagenescomprimidas/Jirafas para cortinas.jpg" },
-    { id: 9, nombre: "Amigurumi Combo Bebe", precio: 80000, img: "imagenescomprimidas/Combo bebé.jpg" },
-    { id: 10, nombre: "Amigurumi Pepa Pig", precio: 40000, img:"imagenescomprimidas/Pepa pig.jpg" },
-    { id: 11, nombre: "Amigurumi Zorrito Bebe", precio: 80000, img:"imagenescomprimidas/Zorrito bebé.jpg" },
-    { id: 12, nombre: "Amigurumi Pikachu", precio: 80000, img:"imagenescomprimidas/Picachú.jpg" },
-    { id: 13, nombre: "Amigurumi Principito", precio: 80000, img:"imagenescomprimidas/Principito.jpg" },
-    { id: 14, nombre: "Amigurumi Baby Yoda", precio: 80000, img:"imagenescomprimidas/Starwars.jpg" },
-    { id: 15, nombre: "Canasta Multiuso decorada", precio: 60000, img:"imagenescomprimidas/Canasta multiuso.jpg" },
-    { id: 16, nombre: "Set Nacimiento", precio: 80000,img:"imagenescomprimidas/Set nacimiento.jpg" },
-    { id: 17, nombre: "Amigurumi Oso Panda", precio: 35000,img:"imagenescomprimidas/Oso Panda.jpg" },
-    { id: 18, nombre: "Amigurumi Oso con Bufanda", precio: 40000,img:"imagenescomprimidas/Oso con bufanda.jpg" },
-    { id: 19, nombre: "Amigurumi Vaca Rosa", precio: 35000, img:"imagenescomprimidas/vacarosa.jpg" },
-    { id: 20, nombre: "Amigurumi Conejita con cartera", precio: 40000, img:"imagenescomprimidas/conejita con cartera.jpg" },
-    { id: 21, nombre: "Ajuar Recien Nacido", precio: 70000, img:"imagenescomprimidas/Ajuar nacimiento.jpg" },
-    { id: 22, nombre: "Amigurumi Hipopotamo bebe", precio: 40000, img:"imagenescomprimidas/Hipopótamobebe.jpg" },
-    { id: 23, nombre: "Amigurumi Papá Noel", precio: 80000, img:"imagenescomprimidas/Papá noel.jpg" },
-    { id: 24, nombre: "Amigurumi Arbolito Navidad", precio: 60000,img:"imagenescomprimidas/Arbolito Navidad.jpg"},
-    { id: 25, nombre: "Amigurumi Angelito Gabriel", precio: 40000,img:"imagenescomprimidas/Ángel Gabriel.jpg"},
-    { id: 26, nombre: "Amigurumi Angelito Pesebre", precio: 35000,img:"imagenescomprimidas/angelito pesebre.jpg"},
-    { id: 27, nombre: "Pesebre Navideño", precio: 90000, img:"imagenescomprimidas/Pesebre.jpg" }
-];
-
-
-
-
-// Constantes globales
+// Selección de elementos importantes
 const container = document.getElementById("productos-container");
-const carritoContainer = document.getElementById("carrito-container");
-const totalElement = document.getElementById("total");
+const carritoContainer = document.getElementById("productos.container");
+let carrito = [];
 const mensajesGlobales = document.getElementById("mensajes-globales");
 const contadorCarrito = document.querySelector(".cart-count");
+const totalElement = document.querySelector("#total");
 const finalizarBtn = document.getElementById("finalizar-compra");
 
-// Manejo del carrito en localStorage
-function guardarCarrito(carrito) {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+// Número de WhatsApp y mensaje predeterminado
+const numeroWhatsApp = "+543413491868"; 
+const mensajeWhatsApp = "Hola, estoy interesado en sus productos. ¿Podría darme más información?";
+
+// Cargar productos desde el archivo JSON
+async function cargarProductos() {
+    try {
+        const respuesta = await fetch('JS/productos.json'); 
+        if (!respuesta.ok) {
+            throw new Error('Error al cargar el archivo JSON');
+        }
+        const productos = await respuesta.json();
+        return productos;
+    } catch (error) {
+        console.error('Error al cargar los productos:', error);
+        mostrarMensaje("Hubo un error al cargar los productos. Intente más tarde.", "danger");
+        return [];
+    }
 }
 
-function cargarCarrito() {
-    return JSON.parse(localStorage.getItem("carrito")) || [];
-}
-
-// Inicializar carrito
-let carrito = cargarCarrito();
-
-// Función para mostrar los productos
-function mostrarProductos() {
+// Mostrar productos en la página
+async function mostrarProductos() {
+    const productos = await cargarProductos();
     if (!container) {
-        console.error("Contenedor no encontrado.");
+        console.error("Contenedor de productos no encontrado.");
         return;
     }
 
-    container.innerHTML = "";
+    container.innerHTML = ""; // Limpiar el contenedor antes de agregar productos
     productos.forEach(producto => {
         const card = crearElementoProducto(producto);
         container.appendChild(card);
@@ -85,87 +61,99 @@ function crearElementoProducto(producto) {
 
 // Agregar producto al carrito
 function agregarAlCarrito(id) {
-    const producto = productos.find(p => p.id === id);
-    if (producto) {
-        carrito.push(producto);
-        guardarCarrito(carrito);
-        actualizarVistaCarrito();
-        mostrarMensaje(`${producto.nombre} agregado al carrito.`, "success");
-    } else {
-        console.error("Producto no encontrado.");
-    }
+    cargarProductos().then(productos => {
+        const producto = productos.find(p => p.id === id);
+        if (producto) {
+            carrito.push(producto); // Agregar producto al carrito
+            guardarCarrito(carrito); // Guardar en localStorage
+            calcularTotal(); // Calcular y actualizar el total
+            actualizarVistaCarrito(); // Actualizar la vista del carrito
+            mostrarMensaje(`${producto.nombre} agregado al carrito.`, "success");
+        } else {
+            console.error("Producto no encontrado.");
+        }
+    });
 }
 
-// Mostrar el carrito detallado
+// Mostrar productos en el carrito
 function mostrarCarrito() {
     if (!carritoContainer) {
         console.error("Contenedor del carrito no encontrado.");
         return;
     }
 
-    carritoContainer.innerHTML = "";
+    carritoContainer.innerHTML = ""; // Limpiar el contenido antes de renderizar
+
     if (carrito.length === 0) {
         carritoContainer.innerHTML = `<p class="text-center">El carrito está vacío.</p>`;
         return;
     }
 
     carrito.forEach((producto, index) => {
-        const item = crearElementoCarrito(producto, index);
+        const item = document.createElement("div");
+        item.className = "row mb-3 align-items-center";
+        item.innerHTML = `
+            <div class="col-md-6">
+                <h6>${producto.nombre}</h6>
+            </div>
+            <div class="col-md-3">
+                <p>$${producto.precio.toLocaleString()}</p>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${index})">Eliminar</button>
+            </div>
+        `;
         carritoContainer.appendChild(item);
     });
-}
-
-// Crear elementos del carrito
-function crearElementoCarrito(producto, index) {
-    const item = document.createElement("div");
-    item.className = "row mb-3 align-items-center";
-    item.innerHTML = `
-        <div class="col-md-6">
-            <h6>${producto.nombre}</h6>
-        </div>
-        <div class="col-md-3">
-            <p>$${producto.precio.toLocaleString()}</p>
-        </div>
-        <div class="col-md-3">
-            <button class="btn btn-danger btn-sm" onclick="eliminarDelCarrito(${index})">Eliminar</button>
-        </div>
-    `;
-    return item;
 }
 
 // Eliminar un producto del carrito
 function eliminarDelCarrito(index) {
     if (index >= 0 && index < carrito.length) {
         const producto = carrito[index];
-        carrito.splice(index, 1);
-        guardarCarrito(carrito);
-        actualizarVistaCarrito();
+        carrito.splice(index, 1); // Eliminar el producto del array
+        guardarCarrito(carrito); // Guardar el carrito actualizado
+        mostrarCarrito(); // Actualizar la vista del carrito
+        calcularTotal(); // Actualizar el total
+        actualizarContadorCarrito(); // Actualizar el contador
         mostrarMensaje(`${producto.nombre} eliminado del carrito.`, "danger");
     }
+}
+
+// Guardar carrito en localStorage
+function guardarCarrito(carrito) {
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+// Cargar carrito desde localStorage
+function cargarCarrito() {
+    const carritoGuardado = localStorage.getItem("carrito");
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
 }
 
 // Calcular el total del carrito
 function calcularTotal() {
     const total = carrito.reduce((sum, producto) => sum + producto.precio, 0);
     if (totalElement) {
-        totalElement.textContent = total.toLocaleString();
+        totalElement.textContent = total.toLocaleString(); // Mostrar el total formateado
     }
 }
 
-// Finalizar la compra
-function finalizarCompra() {
-    if (carrito.length === 0) {
-        mostrarMensaje("El carrito está vacío.", "warning");
-        return;
+// Actualizar el contador de productos en el carrito
+function actualizarContadorCarrito() {
+    if (contadorCarrito) {
+        contadorCarrito.textContent = carrito.length; // Mostrar la cantidad de productos
     }
-
-    carrito = [];
-    guardarCarrito(carrito);
-    actualizarVistaCarrito();
-    mostrarMensaje("Gracias por su compra.", "success");
 }
 
-// Mostrar mensaje dinámico
+// Actualizar vistas relacionadas al carrito
+function actualizarVistaCarrito() {
+    mostrarCarrito(); // Mostrar productos en el carrito
+    calcularTotal(); // Actualizar el total
+    actualizarContadorCarrito(); // Actualizar el contador
+}
+
+// Mostrar mensajes dinámicos
 function mostrarMensaje(mensaje, tipo = "info") {
     const mensajeContainer = document.createElement("div");
     mensajeContainer.className = `alert alert-${tipo} mt-3`;
@@ -177,26 +165,29 @@ function mostrarMensaje(mensaje, tipo = "info") {
     }
 }
 
-// Actualizar el contador de productos en el carrito
-function actualizarContadorCarrito() {
-    if (contadorCarrito) {
-        contadorCarrito.textContent = carrito.length;
-    }
+// Abrir chat de WhatsApp
+function abrirChatWhatsApp() {
+    const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensajeWhatsApp)}`;
+    window.open(url, "_blank");
 }
 
-// Actualizar vistas relacionadas al carrito
-function actualizarVistaCarrito() {
-    mostrarCarrito();
-    calcularTotal();
-    actualizarContadorCarrito();
-}
-
-// Inicializar eventos y datos
+// Inicializar página
 document.addEventListener("DOMContentLoaded", () => {
-    mostrarProductos();
-    actualizarVistaCarrito();
+    carrito = cargarCarrito(); // Cargar el carrito si existe
+    mostrarProductos(); // Mostrar productos
+    actualizarVistaCarrito(); // Actualizar vistas iniciales del carrito
 
     if (finalizarBtn) {
-        finalizarBtn.addEventListener("click", finalizarCompra);
+        finalizarBtn.addEventListener("click", () => {
+            carrito = [];
+            guardarCarrito(carrito);
+            actualizarVistaCarrito();
+            mostrarMensaje("Gracias por tu compra.", "success");
+        });
+    }
+
+    const whatsappFloat = document.querySelector('.whatsapp-float');
+    if (whatsappFloat) {
+        whatsappFloat.addEventListener('click', abrirChatWhatsApp);
     }
 });

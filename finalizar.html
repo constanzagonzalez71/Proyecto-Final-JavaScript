@@ -3,14 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito</title>
-    <link rel="icon" href="imagenescomprimidas/logo.jpg" type="image/x-icon">
+    <title>Amigurumis by Coni - Carrito</title>
+    <link rel="icon" href="imagenescomprimidas/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="stylesheet" href="CSS/styles.css">
     <style>
         .navbar-custom {
           background-color:#98FB98 ;
         }
+        .whatsapp-float {
+            background-color: #98FB98;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .whatsapp-float img {
+            width: 40px;
+            height: 40px;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        } 
+
+        footer {
+            background-color: #98FB98;
+            padding: 20px 10px;
+            text-align: center;
+            color: #6c757d;
+            position: relative;
+        }
+        footer .whatsapp-footer {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+        }
+        @media (max-width: 768px) {
+            footer .whatsapp-footer {
+                right: 15px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -20,7 +61,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="imagenescomprimidas/logo.jpg" alt="Logo" />
+                <img src="imagenescomprimidas/logo.png" alt="Logo" />
               </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,10 +79,8 @@
                     </li>
                 </ul>
                 <!-- Icono del carrito con contador -->
-        <a href="#" class="cart">
-            <img src="imagenescomprimidas/carrito.png" alt="carrito" />
+                <i class="fi fi-rr-shopping-cart"></i>
             <span class="cart-count">0</span> <!-- Contador de productos -->
-        </a>
             </div>
         </div>
     </nav>
@@ -50,7 +89,7 @@
 
     <div class="container my-5">
         <h1 class="text-center mb-4">Resumen de tu Compra</h1>
-        <div id="carrito-container" class="row">
+        <div id="productos.container" class="row">
             <!-- Resumen generado dinámicamente -->
         </div>
         <div class="text-end mt-4">
@@ -59,7 +98,24 @@
         </div>
     </div>
     <div id="mensajes-globales"></div>
+    <footer>
+        <p>&copy; 2024 Amigurumis by Coni. Todos los derechos reservados.</p>
+        <div class="whatsapp-footer">
+            <div class="whatsapp-float" onclick="abrirChatWhatsApp()">
+                <img src="imagenescomprimidas/whassapp.png" alt="WhatsApp">
+            </div>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="JS/pagina.js"></script>
+    <script>
+        // Cargar productos desde JSON
+        fetch('JS/productos.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Productos cargados:', data);
+            })
+            .catch(error => console.error('Error al cargar productos:', error));
+    </script>
 </body>
 </html>

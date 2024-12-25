@@ -20,10 +20,10 @@ body {
     padding: 0.5rem 1rem;
 }
 .nav-link {
-    color: #f8f9fa !important;
+    color:  #6c757d!important;
 }
 .nav-link:hover {
-    color: #dee2e6 !important; /* Gris claro */
+    color: #292b2d!important; /* Gris claro */
 }
 
   
