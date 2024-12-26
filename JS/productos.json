@@ -1,5 +1,5 @@
 [
-    { "id": 1, "nombre": "Unicornio Multicolor", "precio": 60000, "img":"imagenescomprimidas/unicornio multicolor.jpg" },
+    { "id": 1, "nombre": "Unicornio Multicolor", "precio": 60000, "img":"imagenescomprimidas/unicornio.jpg" },
     { "id": 2, "nombre": "Amigurumi Muñeca Razpunsel", "precio": 80000, "img": "imagenescomprimidas/Muñeca Raspunzel.jpg" },
     { "id": 3, "nombre": "Koala Bebe", "precio": 40000, "img": "imagenescomprimidas/Koala Bebé.jpg" },
     { "id": 4, "nombre": "Amigurumi Conejita con moño", "precio": 40000, "img":"imagenescomprimidas/Conejita con moño.jpg" },
